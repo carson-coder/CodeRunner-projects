@@ -103,13 +103,7 @@ def translate_ansi_code(code):
         '6': 'cyan',
         '7': 'white',
         '9': 'red',
-        '10': 'green',
-        '11': 'yellow',
-        '12': 'blue',
-        '13': 'magenta',
-        '14': 'cyan',
-        '15': 'white',
-        '9': 'red',
+#       ^^^^^^^^^^^ these are the codes for graphics modes (bool, italic, etc)
         '10': 'green',
         '11': 'yellow',
         '12': 'blue',
@@ -142,17 +136,10 @@ def translate_ansi_code(code):
         '45': 'magenta',
         '46': 'cyan',
         '47': 'white',
-   
-        '101': 'red',
-        '102': 'green',
-        '103': 'yellow',
-        '104': 'blue',
-        '105': 'magenta',
-        '106': 'cyan',
-        '107': 'white'
     }
     
-    num = code[2:-1]
+    num = code[2:]
+    #print(repr(code))
     if num in color_mapping:
         return(f'<color={color_mapping[num]}>')
     else:
@@ -201,4 +188,5 @@ def new_char(char):
     line+=char
     if send_char:
         return char
+    return("")
     

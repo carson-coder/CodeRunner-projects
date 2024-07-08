@@ -19,7 +19,7 @@ async def execute_CPP( websocket):
         try:
             index = child.expect(['.', '\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0 or index==1:
-                coded_text = new_char(child.before)
+                coded_text = new_char(child.after)
                 
                 await websocket.send(coded_text)
             elif index == 2:
@@ -40,13 +40,9 @@ async def write_CPP(code, websocket):
         try:
             index = child.expect(['\n', pexpect.EOF, pexpect.TIMEOUT], timeout=1)
             if index == 0:
-                coded_text = new_char(child.before)
-                print(child.before)
-                await websocket.send(coded_text)
+                await websocket.send(child.before)
             elif index == 1:
-                coded_text = new_char(child.before)
-                print(child.before)
-                await websocket.send(coded_text)
+                await websocket.send(child.before)
                 break
         except pexpect.exceptions.TIMEOUT as e:
       

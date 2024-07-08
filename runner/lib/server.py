@@ -16,7 +16,7 @@ from sockets.debug.debug import de_bug
 import PMSSystem.PMSsystem as PMSsystem
 
 from sockets.cpp import CPP
-
+from sockets.py import server
 
 from sockets.debug import debug
 
@@ -48,8 +48,8 @@ async def handler(websocket, path):
             await PMSsystem.PMSSystem.PMSSystemStartup(websocket, path)
         case "/code":
             await PMSsystem.PMSSystem.PMSCode(websocket, path)
-        # case "/py":
-        #     await server(websocket, path)
+        case "/py":
+            await server(websocket, path)
         # case "/shell":
         #     #de_bug("Connected to shell server", "INFO")
         #     await shell(websocket, path)
