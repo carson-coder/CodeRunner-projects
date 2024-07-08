@@ -33,6 +33,8 @@ async def write_CPP(code, websocket):
     
     with open(TEMP_CPP_FILE, 'w') as file:
         file.write(code)
+        
+    new_char("") # clear line buffer
 
     child = pexpect.spawn(f"g++ {TEMP_CPP_FILE} -o temp -lm", encoding="utf-8")
 

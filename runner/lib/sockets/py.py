@@ -51,6 +51,7 @@ async def execute_code(code, websocket):
      #   await websocket.send("Unsafe code detected.")
       #  os.remove(TEMP_PYTHON_FILE)
        # return
+    print("")
     child = pexpect.spawn(f"python3 {TEMP_PYTHON_FILE}", encoding="utf-8")
 
     while True:
