@@ -5,6 +5,7 @@ import ast
 import os
 from sockets.debug.debug import de_bug
 from sockets.termc import new_char
+from sockets.termc import clear_flags
 def check_code_safety(code, websocket):
     print( "Checking code safety", "INFO")
     """Checks code for potentially unsafe operations, such as removing root directories."""
@@ -41,7 +42,6 @@ class UnsafeCodeException(Exception):
     def UnsafeCodeException(self, webcosket):
         print( "Unsafe code detected", "ERROR")
     
-from sockets.termc import translate_terminal_colors
 TEMP_PYTHON_FILE = "temp.py"
 async def execute_code(code, websocket):
     print( "Executing Python code", "INFO")
@@ -51,7 +51,8 @@ async def execute_code(code, websocket):
      #   await websocket.send("Unsafe code detected.")
       #  os.remove(TEMP_PYTHON_FILE)
        # return
-    print("")
+    new_char("\n")
+    clear_flags()
     child = pexpect.spawn(f"python3 {TEMP_PYTHON_FILE}", encoding="utf-8")
 
     while True:
@@ -74,5 +75,4 @@ async def server(websocket, path):
         async for code in websocket:
             await execute_code(code, websocket)
     except websockets.exceptions.ConnectionClosedOK as e: 
-        de_bug( f"Connection closed: {e}", "ERROR")
         pass
