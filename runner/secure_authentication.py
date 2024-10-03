@@ -37,6 +37,7 @@ async def client(socket, url):
             recv_socket = recv_sockets[connid]
         else:
             await socket.send("Could not find connection_id: " + connid)
+            await socket.close()
             return
 
         await socket.send("[password]")
